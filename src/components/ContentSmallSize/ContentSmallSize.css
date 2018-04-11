@@ -1,0 +1,48 @@
+.ContentSmallSize {
+    flex: 0 1 calc(25% - 1em);
+    text-align: right;
+    margin-bottom: 1%;
+    background-color: white;
+}
+
+.ContentSmallSize:hover {
+    top: -2px;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+}
+
+@media screen and (max-width: 800px) {
+    .ContentSmallSize {
+        flex: 0 1 calc(50% - 1em);
+    }
+}
+@media screen and (max-width: 600px) {
+    .ContentSmallSize {
+        flex: 0 1 calc(100% - 1em);
+    }
+}
+
+.ContentSmallSize figure {
+   position: relative;
+}
+.ContentSmallSize figcaption {
+    position: absolute;
+    right: 0;
+    top: 180px;
+    color: white;
+    background-color: black;
+    padding: 5px 10px;
+    font-size: 150%;
+    font-weight: 500;
+}
+.ContentSmallSize h3 {
+    color: black;
+}
+.ContentSmallSize span {
+    color: #999999;
+}
+.ContentSmallSize P {
+    color: black;
+}
+.ContentSmallSize div {
+    padding: 1% 2%;
+}

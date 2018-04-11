@@ -1,0 +1,17 @@
+.formContact {
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    width: 80%;
+    color: white;
+    direction: rtl;
+}
+.formContact label {
+    float: right;
+    font-size: 125%;
+    color: white;
+}
+.formContact button {
+    margin: auto;
+    display: block;
+}

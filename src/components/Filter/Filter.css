@@ -1,0 +1,16 @@
+.Filter {
+    width: 100%;
+    padding: 1%;
+    background-color: #EEEEEE;
+}
+.FilterTop {
+    display: flex;
+    justify-content: space-around;
+}
+.Filter ul {
+    display: flex;
+    justify-content: space-around;
+}
+.FilterTop div button{
+  margin: 0 2px;
+}

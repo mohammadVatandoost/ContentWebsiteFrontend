@@ -1,0 +1,8 @@
+#conversionList li {
+    flex: 0 1 19%;
+}
+#conversionList i {
+    font-size: 150%;
+    display: inline-block;
+    vertical-align: middle;
+}
