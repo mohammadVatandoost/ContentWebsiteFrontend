@@ -32,7 +32,3 @@ class App extends Component {
 }
 
 export default App;
-
-{/*<BrowserRouter basename="/">*/}
-    {/*<RouterCom isAuthenticate={this.state.authAdmin} authenticateAdmin={this.authAdmin} />*/}
-{/*</BrowserRouter>*/}
