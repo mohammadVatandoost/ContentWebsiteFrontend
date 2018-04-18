@@ -10,6 +10,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background: #e2e1e0;
 }
 a:hover {
   text-decoration: none;
@@ -42,6 +43,18 @@ li {
 }
 .flex-start {
   justify-content: flex-start;
+}
+.justify-content-center {
+  justify-content: center;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-start-align {
+  align-content: flex-start ;
+}
+.flex-center-align {
+  align-content: center ;
 }
 .flex-item-1 {
   flex: 0 1 8.33333%;

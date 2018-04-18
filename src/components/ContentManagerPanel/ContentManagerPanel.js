@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import axios from 'axios';
 import { NavLink , Route , Switch } from 'react-router-dom';
 import AddContent from './AddContent/AddContent';
+import AddImages from './AddImages/AddImages';
 
 class ContentManagerPanel extends Component {
     render() {
@@ -20,7 +21,7 @@ class ContentManagerPanel extends Component {
                     {/*<Route path="/ContentManagerPanel/slides" exact component={Main}/>*/}
                     {/*<Route path="/ContentManagerPanel/important" component={AddDataPart}/>*/}
                     <Route path="/ContentManagerPanel/Articles" component={AddContent}/>
-                    {/*<Route path="/ContentManagerPanel/images" component={Conversions}/>*/}
+                    <Route path="/ContentManagerPanel/images" component={AddImages}/>
                     {/*<Route path="/ContentManagerPanel/videos" component={AdminLogIn}/>*/}
                     {/*<Route path="/ContentManagerPanel/products" component={AdminControlPanel}/>*/}
                 </Switch>

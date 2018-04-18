@@ -9,6 +9,7 @@ import AdminControlPanel from './components/AdminControlPanel/AdminControlPanel'
 import AdminLogIn from './components/AdminControlPanel/AdminLogIn/AdminLogIn';
 import ContentManagerPanel from './components/ContentManagerPanel/ContentManagerPanel';
 import ContentManagerLogin from './components/ContentManagerPanel/ContentManagerLogin/ContentManagerLogin';
+import Signup from './components/User/Signup/Signup';
 
 class RouterCom extends Component {
     render() {
@@ -23,6 +24,8 @@ class RouterCom extends Component {
                 <Route path="/AdminControlPanel" component={AdminControlPanel}/>
                 <Route path="/ContentManagerPanel" component={ContentManagerPanel}/>
                 <Route path="/ContentManagerLogin" component={ContentManagerLogin}/>
+                <Route path="/Signup" component={Signup}/>
+                <Route path="/Login" component={ContentManagerLogin}/>
              </Switch>
             </main>
             <FooterCom/>

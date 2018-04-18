@@ -5,7 +5,8 @@ import {
 } from 'draft-js';
 
 import Editor from 'draft-js-plugins-editor';
-
+import '../../../../../node_modules/draft-js-image-plugin/lib/plugin.css';
+import '../../../../../node_modules/draft-js-focus-plugin/lib/plugin.css';
 import createImagePlugin from 'draft-js-image-plugin';
 import editorStyles from './editorStyles.css';
 

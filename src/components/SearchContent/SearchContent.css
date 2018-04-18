@@ -4,23 +4,81 @@
     flex-direction: row;
     width: 100%;
     padding: 1%;
-    justify-content: space-around;
+    justify-content: center;
 }
-.SearchContent input {
-    border: none;
-    border-radius: 4px;
-    padding: 10px 16px;
-    margin: 0 1%;
-    flex-grow: 3;
-}
-.SearchContent button {
-    flex-grow: 1;
-}
+/*.SearchContent input {*/
+    /*border: none;*/
+    /*border-radius: 4px;*/
+    /*padding: 10px 16px;*/
+    /*margin: 0 1%;*/
+    /*flex-grow: 3;*/
+/*}*/
+/*.SearchContent button {*/
+    /*flex-grow: 1;*/
+/*}*/
 .SearchContent div {
     display: flex;
     flex: 0 1 40%;
 }
-.SearchContent h2 {
-    flex: 0 1 40%;
+/*.SearchContent h2 {*/
+    /*flex: 0 1 40%;*/
+/*}*/
+
+:root {
+    --color-primary: #eb2f64;
+    --color-primary-light: #FF3366;
+    --color-primary-dark: #BA265D;
+    --color-grey-light-1: #faf9f9;
+    --color-grey-light-2: #f4f2f2;
+    --color-grey-light-3: #f0eeee;
+    --color-grey-light-4: #ccc;
+    --color-grey-dark-1: #333;
+    --color-grey-dark-2: #777;
+    --color-grey-dark-3: #999;
+    --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+    --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+    --line: 1px solid var(--color-grey-light-2);
 }
 
+.search {
+    flex: 0 0 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+@media only screen and (max-width: 31.25em) {
+    .search {
+        order: 1;
+        flex: 0 0 100%;
+        background-color: var(--color-grey-light-2); } }
+.search__input {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background-color: var(--color-grey-light-2);
+    border: none;
+    padding: .7rem 2rem;
+    border-radius: 100px;
+    width: 90%;
+    transition: all .2s;
+    margin-left: -2rem; }
+.search__input:focus {
+    outline: none;
+    width: 100%;
+    background-color: var(--color-grey-light-3); }
+.search__input::-webkit-input-placeholder {
+    font-weight: 100;
+    color: var(--color-grey-light-4); }
+.search__input:focus + .search__button {
+    background-color: var(--color-grey-light-3); }
+.search__button {
+    border: none;
+    background-color: var(--color-grey-light-2); }
+.search__button:focus {
+    outline: none; }
+.search__button:active {
+    transform: translateY(2px); }
+.search__icon {
+    height: 2rem;
+    width: 2rem;
+    fill: var(--color-grey-dark-3);
+}

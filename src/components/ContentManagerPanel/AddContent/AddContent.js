@@ -10,6 +10,7 @@ import TextEditor from '../TextEditor/TextEditor';
 import TextEditor1 from '../TextEditor/AddImageEditor/index';
 import TextEditor2 from '../TextEditor/CustomImageEditor/index';
 import TextEditor3 from '../TextEditor/SimpleImageEditor/index';
+import MyTextEditor from '../MyTextEditor/MyTextEditor';
 
 class AddContent extends Component {
     state = {
@@ -119,9 +120,10 @@ class AddContent extends Component {
                 <br/>
                 <ContainerSmallSize/>
                 <br/>
-                <TextEditor1/>
+                {/*<TextEditor1/>*/}
                 <hr/>
-                <TextEditor3/>
+                {/*<TextEditor3/>*/}
+                <MyTextEditor/>
                 <br/>
             </div>
         )

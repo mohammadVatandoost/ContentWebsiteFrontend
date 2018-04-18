@@ -4,7 +4,7 @@ import { NavLink , Route , Switch } from 'react-router-dom';
 
 const BatteryLifeCalculator = (props) => (
     <div className="container text-right">
-      <h2> محاسبه شارژ دهی باتری </h2>
+      <h1> محاسبه شارژ دهی باتری </h1>
       <hr/>
       <p>به طور عمومی شارژ دهی باتری براساس ظرفیت آن به میلی آمپر برساعت (mAH) و جریان خروجی به میلی آمپر (mA) محاسبه می شود. </p>
       <p> 0.7 * ( جریان خروجی / ظرفیت باتری ) =  شارژدهی باتری </p>

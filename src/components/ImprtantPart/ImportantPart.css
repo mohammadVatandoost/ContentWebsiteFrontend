@@ -1,0 +1,13 @@
+.ImportantData {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 96%;
+    margin-right: 4%;
+    height: 190px;
+}
+.ImportantData div {
+    position: absolute;
+    right: 1px;
+    color: white;
+}

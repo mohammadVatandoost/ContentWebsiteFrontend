@@ -6,7 +6,7 @@ import createImagePlugin from 'draft-js-image-plugin';
 import ImageAdd from './ImageAdd';
 
 import editorStyles from './editorStyles.css';
-
+import '../../../../../node_modules/draft-js-image-plugin/lib/plugin.css';
 const imagePlugin = createImagePlugin();
 const plugins = [imagePlugin];
 

@@ -1,0 +1,9 @@
+.circle:after {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.Brown:after {
+    background-color: brown;
+}

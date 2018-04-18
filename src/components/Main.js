@@ -7,7 +7,8 @@ import FooterCom from './FooterCom/FooterCom';
 import SearchContent from './SearchContent/SearchContent';
 import ContainerSmallSize from './ContainerSmallSize/ContainerSmallSize';
 import Filter from './Filter/Filter';
-import ContentSmallSize from './ContainerSmallSize/ContainerSmallSize';
+import ContentSmallSize from './ContentSmallSize/ContentSmallSize';
+import ImportantPart from './ImprtantPart/ImportantPart';
 
 class Main extends Component {
     // state = {
@@ -40,10 +41,10 @@ class Main extends Component {
         return (
             <AuxWrapper>
                  <div className="row">
-                     <div className="col-md-4 flex-column">
-                         {/*<ContentSmallSize/>*/}
+                     <div className="col-md-3 flex-column">
+                         <ImportantPart/>
                      </div>
-                    <div className="col-md-8">
+                    <div className="col-md-9">
                         <SlideShow />
                     </div>
                  </div>

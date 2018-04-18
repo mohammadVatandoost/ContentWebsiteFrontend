@@ -15,9 +15,9 @@ class SlideShow3 extends Component {
         slide3: false
     }
     componentDidMount() {
-        let timer = setInterval(this.plusSlides, 2000);
+        let timer = setInterval(this.plusSlides, 6000);
         this.setState({timer: timer});
-        setInterval(this.plusSlides(1), 2000);
+        // setInterval(this.plusSlides(1), 2000);
     }
     componentWillUnmount() {
         // use intervalId from the state to clear the interval
@@ -47,20 +47,26 @@ class SlideShow3 extends Component {
     render() {
         return (
             <section className="slideShow3">
-                <div style={{backgroundImage: "linear-gradient(to left, black, transparent, url(" + slide1 + ")"}} className={classNames("slideShow3-slide slideShow3-fade", {"displayBlock":this.state.slide1})}>
+                <div style={{backgroundImage: "linear-gradient(to left, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.29) 55%,rgba(0,0,0,0) 100%), url(" + slide1 + ")"}} className={classNames("slideShow3-slide slideShow3-fade", {"displayBlock":this.state.slide1})}>
                     <div className="slideShow3-abstract">
                         <h1>SlideShow1</h1>
                     </div>
                 </div>
-                <div style={{backgroundImage: "linear-gradient(to left, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1)), url(" + slide2 + ")"}} className={classNames("slideShow3-slide slideShow3-fade", {"displayBlock":this.state.slide2})}>
+                <div style={{backgroundImage: "linear-gradient(to left, rgba(0,0,0,0.89) 0%,rgba(0,0,0,0.89) 16%,rgba(0,0,0,0.48) 55%,rgba(0,0,0,0) 100%), url(" + slide2 + ")"}} className={classNames("slideShow3-slide slideShow3-fade", {"displayBlock":this.state.slide2})}>
                     <div className="slideShow3-abstract">
                         <h1>SlideShow2</h1>
                     </div>
                 </div>
-                <div style={{backgroundImage: "linear-gradient(to left, rgba(244, 212, 48, 0.8), rgba(254, 240, 53, 0.8)), url(" + slide3 + ")"}} className={classNames("slideShow3-slide slideShow3-fade", {"displayBlock":this.state.slide3})}>
+                <div style={{backgroundImage: "linear-gradient(to left, rgba(0,0,0,0.89) 0%,rgba(0,0,0,0.89) 16%,rgba(0,0,0,0.48) 55%,rgba(0,0,0,0) 100%), url(" + slide3 + ")"}} className={classNames("slideShow3-slide slideShow3-fade", {"displayBlock":this.state.slide3})}>
                     <div className="slideShow3-abstract">
                         <h1>SlideShow3</h1>
                     </div>
+                </div>
+                <br/>
+                <div className="text-center">
+                    <span className={classNames("dot", {"slideshowActive":this.state.slide1})} onClick={() => this.currentSlide(1)}></span>
+                    <span className={classNames("dot", {"slideshowActive":this.state.slide2})} onClick={() => this.currentSlide(2)}></span>
+                    <span className={classNames("dot", {"slideshowActive":this.state.slide3})} onClick={() => this.currentSlide(3)}></span>
                 </div>
             </section>
         )

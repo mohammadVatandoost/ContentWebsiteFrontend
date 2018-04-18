@@ -3,6 +3,7 @@ import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import InlineError from '../../messages/InlineError';
 
+
 class AddDataPart extends Component {
     state = {
         data: {
