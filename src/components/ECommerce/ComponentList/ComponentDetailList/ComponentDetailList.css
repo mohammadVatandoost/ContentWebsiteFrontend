@@ -1,0 +1,10 @@
+.AccordinList {
+    width: 80%;
+    display: block;
+    margin: auto;
+    direction: rtl;
+}
+.accordion__title {
+    text-align: center;
+    direction: rtl;
+}

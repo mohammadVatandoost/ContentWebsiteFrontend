@@ -27,13 +27,12 @@
 }
 .ContentSmallSize figcaption {
     position: absolute;
-    right: 0;
     top: 180px;
     color: white;
     background-color: black;
-    padding: 5px 10px;
-    font-size: 150%;
-    font-weight: 500;
+    padding: 4px 8px;
+    font-size: 100%;
+    font-weight: 400;
 }
 .ContentSmallSize h3 {
     color: black;

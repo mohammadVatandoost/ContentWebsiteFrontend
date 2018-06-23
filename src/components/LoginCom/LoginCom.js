@@ -1,9 +1,11 @@
 import React , { Component } from 'react';
-import { Route, Redirect , withRouter } from 'react-router-dom';
+import { Route, Redirect, withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import Validator from 'validator';
 import InlineError from '../messages/InlineError';
 import { ClipLoader } from 'react-spinners';
+import * as actions from '../../store/actions/index';
+import { connect } from 'react-redux';
 
 class LoginCom extends Component {
 
@@ -12,41 +14,26 @@ class LoginCom extends Component {
           email: '',
           password: '',
       },
-      loading: false,
       errors: {}
   }
 
+  componentDidMount() {
+        this.props.checkAuthState();
+  }
 
-  sendData = () => {
+  sendData = (event) => {
+      event.preventDefault();
       const errors = this.validate(this.state.data);
       this.setState({ errors });
       if (Object.keys(errors).length === 0) {
-          this.setState({loading: true});
-           console.log('sendData');
-
-          axios.post('http://localhost:4000/admin/login',{email: this.state.data.email , password: this.state.data.password})
-              .then((req,res) => {
-                  if(req.data) {
-                      // this.props.authenticateAdmin(req.data);
-                      console.log('redirect');
-                      // this.props.history.push('/AddPart');
-                      this.props.history.push({pathname: '/AddPart', state: { isAuthenticate: true , token: req.data.token }
-                      })
-                  }
-              })
-              .catch((error)=> {
-                  this.setState({loading: false});
-                  console.log('error');
-                  console.log(error);
-              });
+          this.props.onAuth(this.state.data.email,this.state.data.password);
       }
-
   }
 
   validate = (data) => {
       const errors = {};
-      if (!Validator.isEmail(data.email)) errors.email = "Invalid email";
-      if (!data.password) errors.password = "Can't be blank";
+      if (!Validator.isEmail(data.email)) errors.email = "ایمیل نادرست است";
+      if (!data.password) errors.password = "رمزتان را وارد نکرده ابد";
       return errors;
   }
 
@@ -56,27 +43,51 @@ class LoginCom extends Component {
         });
 
   render() {
-      const { data, errors, loading } = this.state;
+      if (this.props.token) {
+          return <Redirect to={this.props.redirectTo} />;
+      }
+      const { data, errors } = this.state;
       return (
           <div className="container" style={{direction: "ltr"}}>
-              <form>
+              <form onSubmit={this.sendData} className="text-right" style={{direction: "rtl"}}>
                   <div className="form-group">
-                      <label htmlFor="exampleInputEmail1">Email address</label>
+                      <label htmlFor="exampleInputEmail1">آدرس ایمیل</label>
                       <input name="email" value={data.email} onChange={this.onChange} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                             placeholder="Enter email"/>
+                             placeholder="ایمیل خود را وارد کنید"/>
                       {errors.email && <InlineError text={errors.email} />}
                   </div>
                   <div className="form-group">
-                      <label htmlFor="exampleInputPassword1">Password</label>
-                      <input name="password" value={data.password} onChange={this.onChange} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                      <label htmlFor="exampleInputPassword1">رمز</label>
+                      <input name="password" value={data.password} onChange={this.onChange} type="password" className="form-control" id="exampleInputPassword1" placeholder="رمز خود را وارد کنید"/>
                       {errors.password && <InlineError text={errors.password} />}
                   </div>
-                  <button hidden={loading} onClick={this.sendData} type="button" className="btn btn-primary">LogIn</button>
-                  <ClipLoader color={'#123abc'} loading={loading} />
+                  <div className="flex-row space-between">
+                      <div>
+                          <button  hidden={this.props.loading} type="submit" className="btn btn-success">ورود</button>
+                          <ClipLoader color={'#123abc'} loading={this.props.loading} />
+                      </div>
+                      <Link to="/Signup">ثبت نام نکردم</Link>
+                  </div>
               </form>
           </div>
       )
   }
 };
+const mapStateToProps = state => {
+    return {
+        errorServer: state.auth.error,
+        loading: state.auth.loading,
+        token: state.auth.token
+    }
+}
 
-export default withRouter(LoginCom) ;
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email,password) => dispatch(actions.auth(email,password)),
+        checkAuthState: () => dispatch( actions.authCheckState() )
+    };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginCom);
+
+

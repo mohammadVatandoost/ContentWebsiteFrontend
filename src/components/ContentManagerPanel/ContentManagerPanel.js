@@ -8,7 +8,7 @@ class ContentManagerPanel extends Component {
     render() {
         return (
             <div className="container">
-                <ul className="flex-row space-between" role="navigation">
+                <ul className="flex-row space-between">
                     <li><NavLink to="/ContentManagerPanel/slides" activeClassName="verticalListActive"> اسلایدها </NavLink></li>
                     <li><NavLink to="/ContentManagerPanel/important" activeClassName="verticalListActive">قسمت راست اسلایدها</NavLink></li>
                     <li><NavLink to="/ContentManagerPanel/Articles" activeClassName="verticalListActive"> مقاله ها </NavLink></li>

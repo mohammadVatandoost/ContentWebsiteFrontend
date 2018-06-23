@@ -21,4 +21,9 @@ class ToggleButton extends Component {
         )
     }
 }
+
+// ToggleButton.defaultProps = {
+//     onColor: "yellow"
+// }
+
 export default ToggleButton;

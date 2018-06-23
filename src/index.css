@@ -10,7 +10,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background: #e2e1e0;
+  background: #EEEEEE;
 }
 a:hover {
   text-decoration: none;
@@ -28,7 +28,6 @@ li {
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: space-between;
 }
 .flex-column {
   display: flex;

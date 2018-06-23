@@ -8,7 +8,7 @@ class SearchContent extends Component {
         return (
           <div className="SearchContent">
            <div className="search">
-             <input type="text" className="search__input" placeholder="مقاله ای که می خواهید را پیدا کنید"/>
+             <input type="text" className="search__input" placeholder={this.props.placeHolder} />
              <button className="search__button">
                  <i className="fa fa-search"></i>
              </button>
@@ -17,15 +17,5 @@ class SearchContent extends Component {
         )
     }
 }
-{/*<div className="SearchContent">*/}
-        {/*<div>*/}
-            {/*<input placeholder="مطالب و مقاله ها جست و جو کنید " />*/}
-            {/*<button className="btn btn-primary"> جست و جو </button>*/}
-        {/*</div>*/}
-        {/*<h2>مطالب و فیلم ها</h2>*/}
-        // </div>
 
-{/*<svg className="search__icon">*/}
-    {/*<use xlinkHref={SVG}></use>*/}
-{/*</svg>*/}
 export default SearchContent;

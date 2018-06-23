@@ -5,9 +5,9 @@ import HeaderCom from './HeaderCom/HeaderCom';
 import SlideShow from './SlideShow/SlideShow';
 import FooterCom from './FooterCom/FooterCom';
 import SearchContent from './SearchContent/SearchContent';
-import ContainerSmallSize from './ContainerSmallSize/ContainerSmallSize';
+import ContainerSmallSize from './Content/ContainerSmallSize/ContainerSmallSize';
 import Filter from './Filter/Filter';
-import ContentSmallSize from './ContentSmallSize/ContentSmallSize';
+import ContentSmallSize from './Content/ContentSmallSize/ContentSmallSize';
 import ImportantPart from './ImprtantPart/ImportantPart';
 
 class Main extends Component {
@@ -40,15 +40,15 @@ class Main extends Component {
     render() {
         return (
             <AuxWrapper>
-                 <div className="row">
-                     <div className="col-md-3 flex-column">
+                 <div className="flex-row">
+                     <div className="flex-item-3">
                          <ImportantPart/>
                      </div>
-                    <div className="col-md-9">
+                    <div className="flex-item-9">
                         <SlideShow />
                     </div>
                  </div>
-                  <SearchContent/>
+                  <SearchContent placeHolder="مقاله ای که می خواهید را پیدا کنید" />
                   <Filter/>
                   <ContainerSmallSize/>
             </AuxWrapper>

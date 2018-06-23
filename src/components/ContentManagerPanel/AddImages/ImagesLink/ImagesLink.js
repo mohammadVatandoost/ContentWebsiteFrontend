@@ -1,13 +1,12 @@
-import React , { Component } from 'react';
+import React , { Component, PropTypes } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import Alert from 'react-s-alert';
 
 class ImagesLink extends Component {
 
     state = {
         copied: false
     }
-
-
 
     onChange = e =>
         this.setState({
@@ -16,6 +15,11 @@ class ImagesLink extends Component {
 
     onCopy = () => {
         this.setState({copied: true});
+        Alert.info('کپی شد', {
+            position: 'bottom-left',
+            effect: 'bouncyflip',
+            timeout: 3000
+        });
     };
     render() {
         return (
@@ -29,5 +33,9 @@ class ImagesLink extends Component {
         )
     }
 };
+
+// ImagesLink.propTypes = {
+//     link: PropTypes.string.isRequired
+// }
 
 export default ImagesLink ;

@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 import GoogleSingup from  '../GoogleSignup/GoogleSignup';
-import { Route, Redirect , withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Validator from 'validator';
 import InlineError from '../../messages/InlineError';
@@ -63,13 +63,15 @@ class Signup extends Component {
     render() {
         const { data, errors, loading } = this.state;
         return (
-            <div className="container text-center" style={{width: "60%"}}>
+            <div className="container" style={{width: "60%"}}>
               <CardWrapper>
                 <h1>ثبت نام</h1>
                 <hr/>
-                <GoogleSingup/>
+                <GoogleSingup text="ثبت نام با گوگل"/>
                 <br/>
-                <strong>یا</strong>
+                <div className="text-center">
+                    <strong>یا</strong>
+                </div>
                 <br/>
                 <div className="form-group text-right">
                     <label htmlFor="name">اسم</label>
@@ -88,8 +90,13 @@ class Signup extends Component {
                     <input name="password" value={data.password} onChange={this.onChange} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
                     {errors.password && <InlineError text={errors.password} />}
                 </div>
-                <button hidden={loading} onClick={this.sendData} type="button" className="btn btn-success">ثبت نام</button>
-                <ClipLoader color={'#123abc'} loading={loading} />
+                <div className="flex-row space-between">
+                    <div>
+                        <button hidden={loading} onClick={this.sendData} type="button" className="btn btn-success">ثبت نام</button>
+                        <ClipLoader color={'#123abc'} loading={loading} />
+                    </div>
+                    <Link to="/Login">ثبت نام کرده ام</Link>
+                </div>
                 <br/>
                 <br/>
               </CardWrapper>

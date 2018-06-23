@@ -13,7 +13,7 @@ class ImportantPart extends Component {
                    <h3>Important data</h3>
                </div>
              </div>
-             <div className="ImportantData"  style={{backgroundImage: "linear-gradient(to left, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.29) 55%,rgba(0,0,0,0) 100%), url(" + importantImage2 + ")"}}>
+             <div className="ImportantData"  style={{marginTop: "10px",backgroundImage: "linear-gradient(to left, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.29) 55%,rgba(0,0,0,0) 100%), url(" + importantImage2 + ")"}}>
                    <div>
                        <h3>Important data</h3>
                    </div>

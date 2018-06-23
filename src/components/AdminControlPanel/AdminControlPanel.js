@@ -3,6 +3,10 @@ import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import Validator from 'validator';
 import InlineError from '../messages/InlineError';
+import * as actions from '../../store/actions/index';
+import { connect } from 'react-redux';
+import Alert from 'react-s-alert';
+
 
 class AdminControlPanel extends Component {
     state = {
@@ -15,22 +19,28 @@ class AdminControlPanel extends Component {
         errors: {}
     }
 
-    sendData = () => {
+    componentDidMount() {
+
+    }
+
+    sendData = (event) => {
+        event.preventDefault();
         const errors = this.validate(this.state.data);
         this.setState({ errors });
         if (Object.keys(errors).length === 0) {
             this.setState({loading: true});
-            console.log('sendData');
-
-            axios.post('http://localhost:4000/admin/login',{email: this.state.data.email , password: this.state.data.password})
-                .then((req,res) => {
-                    if(req.data) {
-                        // this.props.authenticateAdmin(req.data);
-                        console.log('redirect');
-                        // this.props.history.push('/AddPart');
-                        this.props.history.push({pathname: '/AddPart', state: { isAuthenticate: true , token: req.data.token }
-                        })
-                    }
+            axios.post('http://localhost:80/ariaelec/public/api/admin-cm-register',{token: this.props.token, name: this.state.data.name, email: this.state.data.email , password: this.state.data.password})
+                .then((res) => {
+                    Alert.success('با موفقیعت ثبت شد', {
+                        position: 'top-right',
+                        effect: 'scale',
+                        beep: false,
+                        timeout: 3000,
+                        offset: 100
+                    });
+                    console.log('res');
+                    console.log(res);
+                    this.setState({loading: false});
                 })
                 .catch((error)=> {
                     this.setState({loading: false});
@@ -57,32 +67,35 @@ class AdminControlPanel extends Component {
     render() {
         const { data, errors, loading } = this.state;
         return (
-            <div className="container" style={{direction: "ltr"}}>
+            <div className="container text-right" style={{direction: "rtl"}}>
               <br/>
               <h2>Add Content Manager</h2>
+                <p>{this.props.token}</p>
+               <form onSubmit={this.sendData}>
                 <div className="form-group">
-                    <label htmlFor="exampleInputname">Email address</label>
+                    <label htmlFor="exampleInputname">اسم</label>
                     <input name="name" value={data.name} onChange={this.onChange} type="text" className="form-control" id="exampleInputname" aria-describedby="emailHelp"
                            placeholder="Enter Name"/>
                     {errors.name && <InlineError text={errors.name} />}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <label htmlFor="exampleInputEmail1">ایمیل</label>
                     <input name="email" value={data.email} onChange={this.onChange} type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                            placeholder="Enter email"/>
                     {errors.email && <InlineError text={errors.email} />}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <label htmlFor="exampleInputPassword1">رمز</label>
                     <input name="password" value={data.password} onChange={this.onChange} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
                     {errors.password && <InlineError text={errors.password} />}
                 </div>
-                <button hidden={loading} onClick={this.sendData} type="button" className="btn btn-primary">LogIn</button>
+                <button hidden={loading} type="submit" className="btn btn-primary">LogIn</button>
                 <ClipLoader color={'#123abc'} loading={loading} />
+               </form>
               <br/>
               <hr/>
               <h2>Remove Content Manager</h2>
-                <table class="table table-striped">
+                <table className="table table-striped">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -110,5 +123,16 @@ class AdminControlPanel extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token
+    }
+}
 
-export default AdminControlPanel;
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email,password) => dispatch(actions.auth(email,password))
+    };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(AdminControlPanel);

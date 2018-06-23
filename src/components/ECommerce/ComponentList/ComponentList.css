@@ -1,0 +1,24 @@
+.component-List a {
+    display: inline-block;
+    padding: 10px 5px;
+    background-color: #808080;
+    width: 100%;
+    color: black;
+}
+
+.component-List a:hover {
+    background-color: #FFFF00;
+}
+.component-List-Active {
+    background-color: #FFFF00;
+}
+.AccordinList {
+    width: 80%;
+    display: block;
+    margin: auto;
+    direction: rtl;
+}
+.accordion__title {
+    text-align: center;
+    direction: rtl;
+}

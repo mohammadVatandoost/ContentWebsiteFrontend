@@ -8,7 +8,7 @@ class AdminLogIn extends Component {
             <div className="container">
                 <br/>
                 <br/>
-                <LoginCom/>
+                <LoginCom  redirectTo="/AdminControlPanel" />
                 <br/>
                 <br/>
             </div>

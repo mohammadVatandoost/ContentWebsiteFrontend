@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Main from './components/Main';
-import RouterCom from './RouterCom';
 import logo from './logo.svg';
 import './App.css';
 
@@ -24,9 +23,9 @@ class App extends Component {
     // }
   render() {
     return (
-     <BrowserRouter basename="/">
-       <RouterCom/>
-     </BrowserRouter>
+        <div>
+          {this.props.children}
+        </div>
     );
   }
 }

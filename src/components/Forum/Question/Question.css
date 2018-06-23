@@ -1,0 +1,11 @@
+.Question {
+    width: 90%;
+    margin: 15px auto;
+}
+.Question span {
+    margin: 0 5px;
+    padding: 5px;
+}
+.Question i {
+    vertical-align: middle;
+}

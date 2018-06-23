@@ -1,27 +1,58 @@
 import React , {Component} from 'react';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
+import Alert from 'react-s-alert';
+import Select from 'react-select';
+import { createEditorStateWithText } from 'draft-js-plugins-editor';
+import {convertFromRaw, convertToRaw} from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import {stateToHTML} from 'draft-js-export-html';
 import InlineError from '../../messages/InlineError';
-import ReactDOM from 'react-dom';
-import {Editor, EditorState} from 'draft-js';
-import '../../../../node_modules/draft-js/dist/Draft.css';
-import ContainerSmallSize from '../../ContainerSmallSize/ContainerSmallSize';
+import ContainerSmallSize from '../../Content/ContainerSmallSize/ContainerSmallSize';
 import TextEditor from '../TextEditor/TextEditor';
 import TextEditor1 from '../TextEditor/AddImageEditor/index';
 import TextEditor2 from '../TextEditor/CustomImageEditor/index';
 import TextEditor3 from '../TextEditor/SimpleImageEditor/index';
 import MyTextEditor from '../MyTextEditor/MyTextEditor';
+import DraftPlugin from '../TextEditor/DraftPlugin/DraftPlugin';
+
+import { connect } from 'react-redux';
+
+const FLAVOURS = [
+    { label: 'رباتیک', value: 'رباتیک' },
+    { label: 'اینترنت اشیا', value: 'اینترنت اشیا' },
+    { label: 'نیمه هادی', value: 'نیمه هادی' },
+    { label: 'کنترل', value: 'کنترل' },
+    { label: 'سلول خورشدی', value: 'سلول خورشدی' },
+    { label: 'الکترونیک قدرت', value: 'الکترونیک قدرت' },
+    { label: 'خازن', value: 'خازن' },
+    { label: 'مقاومت', value: 'مقاومت' },
+];
+
+const WHY_WOULD_YOU = [
+    { label: 'Chocolate (are you crazy?)', value: 'chocolate', disabled: true },
+].concat(FLAVOURS.slice(1));
+
+const text = 'Click on the + button below and insert "/images/canada-landscape-small.jpg" to add the landscape image. Alternativly you can use any image url on the web.';
 
 class AddContent extends Component {
-    state = {
-        data: {
-            title: '',
-            abstract: '',
-            textArea1: '',
-            imageTitle:null,
-        },
-        loading: false,
-        errors: {}
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            data: {
+                title: '',
+                abstract: '',
+                product: '',
+                imageTitle:'',
+                category: [],
+                editorState: createEditorStateWithText(text),
+                editorRaw: null,
+                editorCurrentState: null
+            },
+            loading: false,
+            errors: {}
+        }
     }
 
     validate = (data) => {
@@ -45,46 +76,83 @@ class AddContent extends Component {
 
     sendData = (event) => {
         event.preventDefault();
-        const errors = this.validate(this.state.data);
-        this.setState({ errors });
-        if (Object.keys(errors).length === 0) {
-            this.setState({loading: true});
-            const fd = new FormData();
-            fd.append('partName',this.state.data.partName);
-            fd.append('count',this.state.data.count);
-            fd.append('dataSheet',this.state.data.dataSheet);
-            fd.append('imagePart',this.state.data.imagePart);
-            console.log('this.state.data : ');
-            console.log(this.state.data);
-            let headers = {
-                'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YWI4OWUzNTI1NDA4MzI3ZGNmNTI1YjAiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTIyMDkxNTcxfQ.qXaRtkUsRd6zBxT9Fzwj1BpmGE-0OIQ1nZxfpN82y-M'
-            };
-            let axiosConfig = {
-                headers: {
-                    'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YWI4OWUzNTI1NDA4MzI3ZGNmNTI1YjAiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTIyMDkxNTcxfQ.qXaRtkUsRd6zBxT9Fzwj1BpmGE-0OIQ1nZxfpN82y-M'
-                }
-            };
-            console.log('fd : ');
-            console.log(fd);
-            axios.post('http://localhost:4000/admin/addPart', this.state.data , axiosConfig )
-                .then((req,res) => {
-                    console.log(req);
-                    if(req.data) {
-                        console.log('redirect');
-                    }
-                    this.setState({loading: false});
-                })
-                .catch((error)=> {
-                    this.setState({loading: false});
-                    console.log('error');
-                    console.log(error);
+        // const errors = this.validate(this.state.data);
+        // this.setState({ errors });
+        // if (Object.keys(errors).length === 0) {
+        //     this.setState({loading: true});
+            // const fd = new FormData();
+            // fd.append('partName',this.state.data.partName);
+            // fd.append('count',this.state.data.count);
+            // fd.append('dataSheet',this.state.data.dataSheet);
+            // fd.append('imagePart',this.state.data.imagePart);
+            // console.log('this.state.data : ');
+            // console.log(this.state.data);
+          this.setState({loading: true});
+          console.log(this.props.token);
+          console.log(this.props.user_id);
+          let data = this.state.data;
+          axios.post('http://localhost:80/ariaelec/public/api/cm-add-content',
+               {
+                  token: this.props.token, title: data.title, abstract: data.abstract ,
+                  category: data.category, text: this.state.editorRaw, product: data.product,
+                  image: data.imageTitle
+               })
+            .then((res) => {
+                Alert.success('با موفقیعت ثبت شد', {
+                    position: 'top-right',
+                    effect: 'scale',
+                    beep: false,
+                    timeout: 3000,
+                    offset: 100
                 });
-        }
+                console.log('res');
+                console.log(res);
+                this.setState({loading: false});
+            })
+            .catch((error)=> {
+                this.setState({loading: false});
+                console.log('error');
+                console.log(error);
+            });
+        // }
 
+    }
+
+    handleChange = (selectedOption) => {
+        this.setState({ data: { ...this.state.data, category: selectedOption } });
+    }
+
+    onEditorStateChange = (editorState) => {
+        console.log("handleEditorStateChang :");
+        console.log(editorState);
+       this.setState({editorState: editorState});
+    }
+
+    update = (editorState) => {
+        // the raw state, stringified
+        // this.setState({editorCurrentState: editorState.getCurrentContent()});
+        // this.setState({editorRaw: JSON.stringify( convertToRaw(editorState.getCurrentContent()))});
+        this.setState({editorRaw:  convertToRaw(editorState.getCurrentContent())});
+        const rawDraftContentState = JSON.stringify( convertToRaw(editorState.getCurrentContent()) );
+        console.log("Update :");
+        console.log(this.state.editorRaw);
+        // console.log("UserData :");
+        // console.log(this.props.user_id);
+        // console.log("UserID :");
+        // console.log(this.props.user_id.id);
+        // console.log("editorRaw :");
+        // console.log(this.state.editorRaw);
+        // let html = stateToHTML(editorState.getCurrentContent());
+        // console.log("html :");
+        // console.log(html);
+        // console.log("editorCurrentState :");
+        // console.log(this.state.editorCurrentState);
+        // this.setState({editorState: editorState});
     }
 
     render() {
         const { data, errors, loading } = this.state;
+        // const markup = stateToHTML(this.state.editorCurrentState);
         return (
             <div className="container">
                 <br/>
@@ -92,41 +160,62 @@ class AddContent extends Component {
                 <form className="text-right">
                     <div className="form-group">
                         <label>عنوان</label>
-                        <input name="title" value={data.title} onChange={this.onChange} type="text" className="form-control" placeholder="Atmega8A"/>
+                        <input name="title" value={data.title} onChange={this.onChange} type="text" className="form-control" placeholder="نام مقاله"/>
                         {errors.title && <InlineError text={errors.title} />}
                     </div>
                     <div className="form-group">
                         <label>خلاصه</label>
-                        <input name="abstract" value={data.abstract} onChange={this.onChange} type="text" className="form-control" placeholder="Atmega8A"/>
+                        <input name="abstract" value={data.abstract} onChange={this.onChange} type="text" className="form-control" placeholder="خلاصه حداکثر یک خط"/>
                         {errors.abstract && <InlineError text={errors.abstract} />}
                     </div>
                     <div className="form-group">
-                        <label>عکس کوچک</label>
-                        <input name="imageTitle" value={data.imageTitle} onChange={this.onChange} type="file" className="form-control" placeholder="Atmega8A"/>
-                        {errors.imageTitle && <InlineError text={errors.imageTitle} />}
+                        <label>نام محصول مرتبط</label>
+                        <input name="product" value={data.product} onChange={this.onChange} type="text" className="form-control" placeholder="نام محصول مرتبط"/>
+                        {/*{errors.product && <InlineError text={errors.product} />}*/}
                     </div>
                     <div className="form-group">
-                        <select className="form-control" name="category">
-                            <option value="australia">همه</option>
-                            <option value="canada">IC</option>
-                            <option value="usa">مقاومت ها</option>
-                        </select>
+                        <label>عکس کوچک</label>
+                        <input name="imageTitle" value={data.imageTitle} onChange={this.onChange} type="text" className="form-control" placeholder="لینک عکس"/>
+                        {errors.imageTitle && <InlineError text={errors.imageTitle} />}
                     </div>
-                    <TextEditor/>
+                    <Select
+                        closeOnSelect
+                        disabled={false}
+                        multi
+                        onChange={this.handleChange}
+                        options={FLAVOURS}
+                        placeholder="تگ های مربوط را انتخاب کن"
+                        removeSelected
+                        rtl
+                        simpleValue
+                        value={data.category}
+                    />
+                    <br/>
+                    {/*<MyTextEditor handleEditorStateChang={this.handleEditorStateChang}  />*/}
+                    <DraftPlugin update={this.update} />
+                    <br/>
                     <button hidden={loading} onClick={this.sendData} type="submit" className="btn btn-primary">Send</button>
                     <ClipLoader color={'#123abc'} loading={loading} />
                 </form>
-                <br/>
+                {/*<br/>*/}
+                {/*<hr/>*/}
+                {/*<br/>*/}
+                {/*<br/>*/}
+                {/*<hr/>*/}
+                {/*<br/>*/}
                 <br/>
                 <ContainerSmallSize/>
                 <br/>
-                {/*<TextEditor1/>*/}
-                <hr/>
-                {/*<TextEditor3/>*/}
-                <MyTextEditor/>
                 <br/>
             </div>
         )
     }
 }
-export default AddContent;
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token,
+        user_id: state.auth.userData
+    }
+}
+
+export default connect(mapStateToProps,null)(AddContent);

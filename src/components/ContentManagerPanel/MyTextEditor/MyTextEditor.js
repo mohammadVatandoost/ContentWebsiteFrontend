@@ -35,7 +35,12 @@ class MyTextEditor extends Component {
 
     onURLChange = (e) => this.setState({urlValue: e.target.value});
 
-    onChange = (editorState) => this.setState({editorState});
+    onChange = (editorState) => {
+        this.setState({editorState});
+        // the raw state, stringified
+        // const rawDraftContentState = JSON.stringify( convertToRaw(this.state.editorState.getCurrentContent()) );
+        // this.props.handleEditorStateChang(rawDraftContentState);
+    }
 
     handleKeyCommand = (command, editorState) => {
         const newState = RichUtils.handleKeyCommand(editorState, command);
