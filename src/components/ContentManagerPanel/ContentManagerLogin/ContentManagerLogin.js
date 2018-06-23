@@ -9,7 +9,7 @@ class ContentManagerLogin extends Component {
             <div className="container">
                 <br/>
                 <h2>Content Manager Log in</h2>
-                <LoginCom/>
+                <LoginCom redirectTo="/ContentManagerPanel"/>
                 <br/>
             </div>
         )
